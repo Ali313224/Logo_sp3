@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SB3 LOGO - طلب إنشاء لوغو</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>طلب تصميم لوغو</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <img src="https://i.postimg.cc/bS8BL6sv/logo.png" alt="Logo" class="logo" />
+    <img src="https://i.imgur.com/1WEuLHZ.png" alt="Logo" class="logo" />
     <h1>SB3 LOGO</h1>
   </header>
 
   <main>
     <form id="orderForm">
-      <input type="text" id="name" placeholder="الاسم" required />
+      <input type="text" id="name" placeholder="اسمك الكامل" required />
       <input type="email" id="email" placeholder="البريد الإلكتروني" required />
       <input type="tel" id="phone" placeholder="رقم الهاتف" required />
       <textarea id="description" placeholder="وصف الطلب" required></textarea>
@@ -24,18 +24,43 @@
   </main>
 
   <footer>
-    <p>تمت برمجة هذا الموقع بواسطة <strong>Ali_Shams_313</strong></p>
-    <p>للتواصل مع المبرمج ↓</p>
+    <p>لقد تمت برمجة هذا الموقع بواسطة Ali_Shams_313</p>
+    <p>للتواصل مع المبرمج</p>
     <div class="social">
-      <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt" target="_blank" rel="noopener noreferrer">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" />
+      <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" />
       </a>
-      <a href="https://www.facebook.com/share/12K89Pimqmp/" target="_blank" rel="noopener noreferrer">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" />
+      <a href="https://www.facebook.com/share/12K89Pimqmp/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
       </a>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <audio id="submitSound" src="https://cdn.pixabay.com/audio/2022/10/11/audio_7ed8e253ab.mp3" preload="auto"></audio>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const description = document.getElementById("description").value;
+
+      const webhookURL = "https://discord.com/api/webhooks/1373493498182893609/zuhveOzKdNHZvgsJGZhqNyby4eTU9nd6ZtnQo6oJitLGjwR1G5HRddY3fC73ZRIINHg-";
+
+      const content = `**طلب تصميم لوغو جديد**\nالاسم: ${name}\nالبريد: ${email}\nرقم الهاتف: ${phone}\nالوصف: ${description}`;
+
+      await fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      });
+
+      document.getElementById("orderForm").reset();
+      document.getElementById("submitSound").play();
+      document.getElementById("responseMessage").innerText = "شكرًا لك! لقد تم استلام طلبك بنجاح. سيتم الرد عليك قريبًا.";
+    });
+  </script>
 </body>
 </html>
