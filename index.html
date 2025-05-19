@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>طلب تصميم لوغو</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="https://i.imgur.com/1WEuLHZ.png" alt="Logo" class="logo" />
+    <h1>SB3 LOGO</h1>
+  </header>
+
+  <main>
+    <form id="orderForm">
+      <input type="text" id="name" placeholder="اسمك الكامل" required />
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+      <input type="tel" id="phone" placeholder="رقم الهاتف" required />
+      <textarea id="description" placeholder="وصف الطلب" required></textarea>
+      <button type="submit">إرسال الطلب</button>
+    </form>
+    <p id="responseMessage"></p>
+  </main>
+
+  <footer>
+    <p>لقد تمت برمجة هذا الموقع بواسطة Ali_Shams_313</p>
+    <p>للتواصل مع المبرمج</p>
+    <div class="social">
+      <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" />
+      </a>
+      <a href="https://www.facebook.com/share/12K89Pimqmp/" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
+      </a>
+    </div>
+  </footer>
+
+  <audio id="submitSound" src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_efc9346310.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+
+  <script>
+    document.getElementById("orderForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const description = document.getElementById("description").value;
+
+      const webhookURL = "https://discord.com/api/webhooks/1373967807271931935/V58QOo1e6x0jqYd3IkpPUp1cRt7-ILgkD7llnRH_eK3Y1zSPS76HhUVK2FY3_GQi-1XU";
+
+      const content = `**طلب تصميم لوغو جديد**\nالاسم: ${name}\nالبريد: ${email}\nرقم الهاتف: ${phone}\nالوصف: ${description}`;
+
+      await fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content }),
+      });
+
+      document.getElementById("orderForm").reset();
+
+      const sound = document.getElementById("submitSound");
+      sound.play().catch(e => {
+        console.warn("لم يتم تشغيل الصوت تلقائيًا:", e);
+      });
+
+      document.getElementById("responseMessage").innerText =
+        "شكرًا لك! لقد تم استلام طلبك بنجاح. سيتم الرد عليك قريبًا.";
+    });
+  </script>
+</body>
+</html>
